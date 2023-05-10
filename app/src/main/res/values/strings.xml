@@ -8,4 +8,5 @@
     <string name="personal_information">Personal information</string>
     <string name="cursus_information">Cursus information</string>
     <string name="namenega_student_s19_be">namenega@student.s19.be</string>
+    <string name="go_back_to_ownprofileactivity">Go back to OwnProfileActivity</string>
 </resources>
