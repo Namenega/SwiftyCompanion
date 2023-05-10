@@ -1,2 +1,5 @@
 # SwiftyCompanion
-Simple project in Kotlin with Android Studio. Make api call on 42 API and displays informations
+
+---
+
+Simple project in `Kotlin` with `Android Studio`. The goal is to make API call on the 42 API and displays information about students.
