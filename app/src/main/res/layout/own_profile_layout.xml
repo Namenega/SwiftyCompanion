@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastelLightBlue"
+    tools:context=".OwnProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="13dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_person_24"
+            app:civ_border_color="@color/pastelGreen"
+            app:civ_border_width="@dimen/_1sdp" />
+
+        <TextView
+            android:id="@+id/login_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_26sdp"
+            android:text="Namenega"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/who_are_you_looking_for"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13sdp"
+            android:layout_marginStart="@dimen/_16sdp"/>
+
+        <EditText
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_14sdp"
+            android:autofillHints=""
+            android:background="@drawable/background_input_field"
+            android:drawableStart="@drawable/baseline_short_text_24"
+            android:drawablePadding="@dimen/_5sdp"
+            android:hint="@string/login"
+            android:inputType="textPersonName"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+        <Button
+            android:id="@+id/submitSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginLeft="@dimen/_110sdp"
+            android:layout_marginRight="@dimen/_110sdp"
+
+            android:text="Search"
+            android:textSize="@dimen/_14sdp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:backgroundTint="@color/pastelGreen"
+            android:padding="@dimen/_10sdp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

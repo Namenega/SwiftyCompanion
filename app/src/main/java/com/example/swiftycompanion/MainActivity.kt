@@ -1,0 +1,40 @@
+package com.example.swiftycompanion
+
+import android.content.Intent
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var loginButton: Button
+
+    private val baseUri = "https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-dc1df21032f1b7395ef00e3f89ace6cca48cc12b12bd54457ed5c0d032c06c5f&redirect_uri=swiftycompanionapp%3A%2F%2Foauth2callback%2Foauth2callback&response_type=code";
+
+    private val authLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val authCode = result.data?.getStringExtra("code")
+            // Exchange the authorization code for an access token
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        loginButton = findViewById(R.id.loginbtn)
+
+        loginButton.setOnClickListener {
+            val authUri = Uri.parse(baseUri)
+            val intent = Intent(Intent.ACTION_VIEW, authUri)
+            authLauncher.launch(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // registerForActivityResult() should be call here
+    }
+}

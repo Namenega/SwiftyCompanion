@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SwiftyCompanion</string>
+    <string name="login">Login</string>
+    <string name="login_with_42">Login with 42</string>
+    <string name="by_namenega">by Namenega</string>
+    <string name="swifty_companion">Swifty Companion</string>
+    <string name="who_are_you_looking_for">Who are you looking for ?</string>
+    <string name="personal_information">Personal information</string>
+    <string name="cursus_information">Cursus information</string>
+    <string name="namenega_student_s19_be">namenega@student.s19.be</string>
+</resources>
