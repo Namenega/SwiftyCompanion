@@ -10,4 +10,4 @@ Simple project in `Kotlin` with `Android Studio`. The goal is to make API call o
 
 Connection portal to 42 intranet
 
-<img src="app/login_page.png"  width="1080" height="1920">
+<img src="app/login_page.png"  width="540" height="960">
