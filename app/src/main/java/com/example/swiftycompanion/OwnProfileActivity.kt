@@ -51,12 +51,23 @@ class OwnProfileActivity : AppCompatActivity() {
         // Get data from previous activity (MainActivity)
         uri = intent.data
 
+        // Get the code
+        val result = uri?.getBooleanQueryParameter("code", true)
+
+        // If the code from 42 is ok, with stay, else, we go back to MainActivity
+        if (result == true && uri?.getQueryParameter("code").toString() != "null") {
+            val authCode = uri?.getQueryParameter("code").toString()
+        } else if (result == false || uri?.getQueryParameter("code").toString() == "null") {
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         // Get access token from StudentProfileActivity
         accessToken = intent.getStringExtra("accessToken")
 
         // Request access token with code from callback
         if ((uri != null) && uri.toString().startsWith("swiftycompanionapp://oauth2callback/oauth2callback") && accessToken == null) {
-            accessToken?.let { Log.i("ACCESS_TOKEN2", it) }
             requestAccessToken()
         } else {
             setContentView(R.layout.own_profile_layout)

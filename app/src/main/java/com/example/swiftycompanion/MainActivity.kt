@@ -17,11 +17,9 @@ class MainActivity : AppCompatActivity() {
 
     // Launch the Oauth2 portal to 42
     private val authLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            // Get a token
-            val authCode = result.data?.getStringExtra("code")
-        }
+
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +30,15 @@ class MainActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val authUri = Uri.parse(baseUri)
             val intent = Intent(Intent.ACTION_VIEW, authUri)
+//            intent.putExtra("code", 3000)
+//            setResult(Activity.RESULT_OK, intent)
+//            finish()
             authLauncher.launch(intent)
         }
     }
 
-    override fun onStart() {
-        // registerForActivityResult() should be call here
-        super.onStart()
-    }
+//    override fun onStart() {
+//        // registerForActivityResult() should be call here
+//        super.onStart()
+//    }
 }
