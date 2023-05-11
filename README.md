@@ -10,4 +10,4 @@ Simple project in `Kotlin` with `Android Studio`. The goal is to make API call o
 
 Connection portal to 42 intranet
 
-![LOGIN](login_page.png)
+![LOGIN](app/login_page.png)
