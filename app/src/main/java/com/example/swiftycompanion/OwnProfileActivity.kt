@@ -3,6 +3,7 @@ package com.example.swiftycompanion
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -32,8 +33,9 @@ class OwnProfileActivity : AppCompatActivity() {
     private val TOKEN_ENDPOINT = "https://api.intra.42.fr/oauth/token"
 
     // Declare variable to store access token
-    private lateinit var accessToken: String
-    private var login: String = "namenega"
+    private var accessToken: String? = null
+    private var uri: Uri? = null
+    private lateinit var login: String
 
     // Declare variable to get elements from current layout
     private lateinit var loginTV: TextView
@@ -47,14 +49,19 @@ class OwnProfileActivity : AppCompatActivity() {
         setContentView(R.layout.own_profile_layout)
 
         // Get data from previous activity (MainActivity)
-        val uri = intent.data
+        uri = intent.data
+
+        // Get access token from StudentProfileActivity
+        accessToken = intent.getStringExtra("accessToken")
 
         // Request access token with code from callback
-        if ((uri != null) && uri.toString().startsWith("swiftycompanionapp://oauth2callback/oauth2callback")) {
+        if ((uri != null) && uri.toString().startsWith("swiftycompanionapp://oauth2callback/oauth2callback") && accessToken == null) {
+            accessToken?.let { Log.i("ACCESS_TOKEN2", it) }
             requestAccessToken()
         } else {
             setContentView(R.layout.own_profile_layout)
         }
+
 
         // Get elements from current layout
         profileImage    = findViewById(R.id.profileImage)
@@ -71,12 +78,12 @@ class OwnProfileActivity : AppCompatActivity() {
             login = loginET.text.toString()
 
             // Request login to search for and go next Activity
-            requestLogin(login, accessToken, 1)
+            accessToken?.let { it1 -> requestLogin(login, it1, 1) }
         }
     }
 
     // Make request to get Login value from JSON
-    private suspend fun apiRequest(url: String, status: Int): String {
+    private suspend fun apiRequest(url: String, status: Int): JSONObject {
         return withContext(Dispatchers.IO) {
             try {
 
@@ -96,15 +103,16 @@ class OwnProfileActivity : AppCompatActivity() {
                 // Isolate 'login' value from JSON and return it
                 if (response.code == 200) {
                     val responseBody = response.peekBody(Long.MAX_VALUE).string()
-                    val jsonObject = JSONObject(responseBody)
-                    jsonObject.getString("login")
+//                    val jsonObject = JSONObject(responseBody)
+                    JSONObject(responseBody)
+//                    jsonObject.getString("login")
                 }
                 // Else, return empty JSON '{}'
                 else {
                     if (status == 0) {
                         throw IOException("HTTP error code: ")
                     } else {
-                        JSONObject().toString()
+                        JSONObject()
                     }
                 }
             } catch (e: Exception) {
@@ -156,34 +164,39 @@ class OwnProfileActivity : AppCompatActivity() {
     private fun requestLogin(login: String, token: String, status: Int) {
 
         // Declare string and get token
-        var str: String
         accessToken = token
 
         // Start Routing Main at launch
         CoroutineScope(Dispatchers.Main).launch {
 
-            // Async on apiRequest() to get login or nothing
-            str = async { apiRequest("https://api.intra.42.fr/v2/users/" + login, status) }.await()
+            // Async on apiRequest() to get JSON Object
+            val obj = async { apiRequest("https://api.intra.42.fr/v2/users/" + login, status) }.await()
 
             // If login is not empty and is not empty JSON and not myself
             // create Intent and go next Activity (StudentProfileActivity)
-            if (str.isNotEmpty() && str != "{}" && str != "namenega") {
+            if (obj.toString().isNotEmpty() && obj.toString() != "{}" && obj.getString("login") != "namenega") {
 
                 // Intent
-                val intent = Intent(this@OwnProfileActivity, StudentProfileActivity::class.java)
+                val studIntent = Intent(this@OwnProfileActivity, StudentProfileActivity::class.java)
 
-                // Add login and access token to intent
-                intent.putExtra("login", login)
-                intent.putExtra("accessToken", accessToken)
+                // Add data from Main, login, access token and JSONObject to intent
+                studIntent.data = intent.data
+                studIntent.putExtra("accessToken", accessToken)
+                studIntent.putExtra("login", login)
+                studIntent.putExtra("jsonObject", obj.toString())
 
                 // Start new activity (StudentProfileActivity)
-                startActivity(intent)
+                startActivity(studIntent)
             } else {
 
                 // If student does not exist, color the EditText in Red
-                if (str != "namenega") {
+                /*if (str == "Namenega") {
+                    //recommencer api request login.lowercase()
+                }*/
+                if (obj.toString().isEmpty() || obj.toString() == "{}" || obj.getString("login") != "namenega") {
                     loginET.setBackgroundColor(Color.RED)
                 }
+
             }
         }
     }

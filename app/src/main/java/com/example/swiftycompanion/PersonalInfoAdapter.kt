@@ -1,6 +1,5 @@
 package com.example.swiftycompanion
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -77,6 +76,7 @@ class PersonalInfoAdapter(private val listGroup: ArrayList<String>, private val 
         val sChild: String = getChild(groupPosition, childPosition).toString()
 
         tv.setText(sChild)
+        tv.setTextColor(Color.DKGRAY)
 
         tv.setOnClickListener {
             Toast.makeText(parent.context, sChild, Toast.LENGTH_SHORT).show()
