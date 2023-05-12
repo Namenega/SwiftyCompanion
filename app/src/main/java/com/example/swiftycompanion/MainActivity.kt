@@ -16,10 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val baseUri = "https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-dc1df21032f1b7395ef00e3f89ace6cca48cc12b12bd54457ed5c0d032c06c5f&redirect_uri=swiftycompanionapp%3A%2F%2Foauth2callback%2Foauth2callback&response_type=code"
 
     // Launch the Oauth2 portal to 42
-    private val authLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
-    }
-
+    private val authLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ -> }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

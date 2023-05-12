@@ -27,9 +27,8 @@ import java.io.IOException
 
 class OwnProfileActivity : AppCompatActivity() {
 
-    //! TODO : change how it works
-    private val CLIENT_ID = "u-s4t2ud-dc1df21032f1b7395ef00e3f89ace6cca48cc12b12bd54457ed5c0d032c06c5f"
-    private val CLIENT_SECRET = "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"
+    private val CLIENT_ID = BuildConfig.uid
+    private val CLIENT_SECRET = BuildConfig.secret
     private val TOKEN_ENDPOINT = "https://api.intra.42.fr/oauth/token"
 
     // Declare variable to store access token
@@ -72,7 +71,6 @@ class OwnProfileActivity : AppCompatActivity() {
         } else {
             setContentView(R.layout.own_profile_layout)
         }
-
 
         // Get elements from current layout
         profileImage    = findViewById(R.id.profileImage)
