@@ -72,6 +72,8 @@ class OwnProfileActivity : AppCompatActivity() {
             setContentView(R.layout.own_profile_layout)
         }
 
+        Log.i("ACCESS_TOKEN", accessToken.toString())
+
         // Get elements from current layout
         profileImage    = findViewById(R.id.profileImage)
         loginTV         = findViewById(R.id.login_textview)

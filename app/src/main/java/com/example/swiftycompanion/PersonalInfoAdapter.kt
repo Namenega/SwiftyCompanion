@@ -11,10 +11,6 @@ import android.widget.Toast
 
 class PersonalInfoAdapter(private val listGroup: ArrayList<String>, private val listChild: HashMap<String, ArrayList<String>>) : BaseExpandableListAdapter() {
 
-    // Initialize variable
-//    val listGroup: ArrayList<String> = ArrayList<String>()
-//    val listChild: HashMap<String, ArrayList<String>> = HashMap<String, ArrayList<String>>()
-
     override fun getGroupCount(): Int {
         return listGroup.size
     }
@@ -55,7 +51,7 @@ class PersonalInfoAdapter(private val listGroup: ArrayList<String>, private val 
         val tv: TextView = view.findViewById(android.R.id.text1)
         val sGroup: String = getGroup(groupPosition).toString()
 
-        tv.setText(sGroup)
+        tv.text = sGroup
         tv.setTypeface(null, Typeface.BOLD)
         tv.setTextColor(Color.WHITE)
 
@@ -88,6 +84,4 @@ class PersonalInfoAdapter(private val listGroup: ArrayList<String>, private val 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
         return false
     }
-
-
 }
